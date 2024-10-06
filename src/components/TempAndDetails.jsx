@@ -4,82 +4,80 @@ import { FiWind } from "react-icons/fi";
 import { GiSunrise, GiSunset } from "react-icons/gi";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 
-const TempAndDetails = ({
-  weather: {
-    details,
-    icon,
-    temp,
-    temp_min,
-    temp_max,
-    sunrise,
-    sunset,
-    speed,
-    humidity,
-    feels_like,
-  },
-  units,  
-}) => {
+/**
+ * Component này dùng để hiển thị nhiệt độ và các thông tin chi tiết về thời tiết
+ * @param {{weather: {details: string, icon: string, temp: number, temp_min: number, temp_max: number, sunrise: string, sunset: string, speed: number, humidity: number, feels_like: number}, units: string}} props
+ * props.weather: object chứa các thông tin chi tiết về thời tiết
+ * props.units: đơn vị nhiệt độ (metric hoặc imperial)
+ */
+const TempAndDetails = ({ weather, units }) => {
+  /**
+   * Mảng các đối tượng chứa các thông tin chi tiết theo chiều dọc
+   */
   const verticalDetails = [
     {
       id: 1,
       Icon: FaThermometerEmpty,
       title: "Real Feel",
-      value: `${feels_like.toFixed()}°`,
+      value: `${weather.feels_like.toFixed()}°`,
     },
     {
       id: 2,
       Icon: BiSolidDropletHalf,
       title: "Humidity",
-      value: `${humidity.toFixed()}%`,
+      value: `${weather.humidity.toFixed()}%`,
     },
     {
       id: 3,
       Icon: FiWind,
       title: "Wind",
-      value: `${speed.toFixed()} ${units === "metric" ? "km/h" : "m/s"}`,
+      value: `${weather.speed.toFixed()} ${units === "metric" ? "km/h" : "m/s"}`,
     },
   ];
 
+  /**
+   * Mảng các đối tượng chứa các thông tin chi tiết theo chiều ngang
+   */
   const horizontalDetails = [
     {
       id: 1,
       Icon: GiSunrise,
       title: "Sunrise",
-      value: sunrise,
+      value: weather.sunrise,
     },
     {
       id: 2,
       Icon: GiSunset,
       title: "Sunset",
-      value: sunset,
+      value: weather.sunset,
     },
     {
       id: 3,
       Icon: MdKeyboardArrowUp,
       title: "Max",
-      value: `${temp_max.toFixed()}°`,
+      value: `${weather.temp_max.toFixed()}°`,
     },
     {
       id: 4,
       Icon: MdKeyboardArrowDown,
       title: "Min",
-      value: `${temp_min.toFixed()}°`,
+      value: `${weather.temp_min.toFixed()}°`,
     },
   ];
 
   return (
     <div>
       <div className="flex items-center justify-center py-6 text-xl text-cyan-300">
-        <p>{details}</p>
+        <p>{weather.details}</p>
       </div>
 
       <div className="flex flex-row items-center justify-between py-3">
         <img
-          src={icon}
+          src={weather.icon}
           alt="weather icon"
           className="w-20"
         />
-        <p className="text-5xl">{`${temp.toFixed()}°C`}</p>
+        <p className="text-5xl">{`${weather.temp.toFixed()}°C`}</p>
 
         <div className="flex flex-col space-y-3 items-start">
           {verticalDetails.map((detail) => {
@@ -112,3 +110,4 @@ const TempAndDetails = ({
 };
 
 export default TempAndDetails;
+

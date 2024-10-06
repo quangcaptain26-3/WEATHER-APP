@@ -1,6 +1,13 @@
 import React from "react";
 
+/**
+ * Component này dùng để hiển thị các nút bấm có chứa tên các thành phố
+ * Khi bấm vào nút bấm, sẽ gọi hàm setQuery và truyền vào tên thành phố
+ */
 const TopButton = ({ setQuery }) => {
+  /**
+   * Mảng các đối tượng chứa các thông tin về các thành phố
+   */
   const citites = [
     {
       id: 1,
@@ -26,6 +33,10 @@ const TopButton = ({ setQuery }) => {
 
   return (
     <div className="flex items-center justify-around my-6">
+      {/* /**
+       * Lặp qua mảng citites và hiển thị các nút bấm có chứa tên các thành phố
+       * Khi bấm vào nút bấm, sẽ gọi hàm setQuery và truyền vào tên thành phố
+       */}
       {citites.map((city) => (
         <button
           key={city.id}
@@ -40,3 +51,4 @@ const TopButton = ({ setQuery }) => {
 };
 
 export default TopButton;
+
